@@ -97,6 +97,35 @@ del expenses.db
 python app.py
 ```
 
+## Screenshots
+
+### Register
+<img width="600" alt="Register" src="https://github.com/user-attachments/assets/c49309e5-965a-4741-af98-19c4a46a7e28" />
+
+### Login
+<img width="600" alt="Login" src="https://github.com/user-attachments/assets/f1416b5c-9718-49f5-8678-94934265e544" />
+
+### Overview Dashboard
+<img width="900" alt="Overview" src="https://github.com/user-attachments/assets/a84bbe13-d9fa-4716-ae73-b7c1e93502cf" />
+
+### Overview with Charts
+<img width="900" alt="Overview Charts" src="https://github.com/user-attachments/assets/3f3931a0-de50-4c28-ab3b-c74bfb4dbb98" />
+
+### Expenses
+<img width="900" alt="Expenses" src="https://github.com/user-attachments/assets/1cc7d3c5-da27-45f2-92fb-8a3708a0b248" />
+
+### All Family Expenses
+<img width="900" alt="All Expenses" src="https://github.com/user-attachments/assets/fad97710-9d58-4559-b295-39b63d3ba236" />
+
+### Income
+<img width="900" alt="Income" src="https://github.com/user-attachments/assets/db901879-f614-4ff4-a946-74c5364521c7" />
+
+### Income Two Members
+<img width="900" alt="Income Two Members" src="https://github.com/user-attachments/assets/2c04e922-a41d-427a-b4e5-f41af5c92e9e" />
+
+### Family Overview
+<img width="900" alt="Family" src="https://github.com/user-attachments/assets/f6a879c0-6b68-4197-90ee-dcd0ef68cc8f" />
+
 The database will be recreated automatically.
 
 ---
@@ -106,3 +135,6 @@ The database will be recreated automatically.
 - The database file is created automatically the first time you run the app
 - Only the family admin can see the invite code in the Family tab
 - Admins can delete any entry, members can only delete their own
+
+
+
