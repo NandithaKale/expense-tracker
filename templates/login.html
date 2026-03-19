@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — Family Expense Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#0f0f13;font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;color:#e8e8f0}
+    .bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+    .card{background:#18181f;border:1px solid #2a2a35;border-radius:20px;padding:2.5rem;width:100%;max-width:420px;position:relative;z-index:1}
+    .logo{text-align:center;margin-bottom:2rem}
+    .logo .icon{font-size:36px;display:block;margin-bottom:8px}
+    .logo h1{font-size:20px;font-weight:600;color:#fff}
+    .logo p{font-size:13px;color:#666;margin-top:4px}
+    .tabs{display:flex;background:#0f0f13;border-radius:10px;padding:4px;margin-bottom:1.5rem;gap:4px}
+    .tab-btn{flex:1;padding:8px;border:none;border-radius:7px;background:transparent;color:#666;font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s}
+    .tab-btn.active{background:#6c63ff;color:#fff;font-weight:500}
+    .reg-tabs{display:flex;background:#0f0f13;border-radius:8px;padding:3px;margin-bottom:1rem;gap:3px}
+    .reg-tab{flex:1;padding:7px;border:none;border-radius:6px;background:transparent;color:#666;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s}
+    .reg-tab.active{background:#2a2a35;color:#e8e8f0;font-weight:500}
+    .form-group{margin-bottom:1rem}
+    .form-group label{display:block;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+    .form-group input,.form-group select{width:100%;padding:10px 14px;background:#0f0f13;border:1px solid #2a2a35;border-radius:10px;color:#e8e8f0;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+    .form-group input:focus{border-color:#6c63ff}
+    .form-group select option{background:#0f0f13}
+    .btn-submit{width:100%;padding:12px;background:#6c63ff;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;margin-top:.5rem;transition:opacity .2s,transform .1s}
+    .btn-submit:hover{opacity:.9}
+    .btn-submit:active{transform:scale(.98)}
+    .error{background:#2d1b1b;border:1px solid #5c2d2d;color:#ff6b6b;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:1rem;display:none}
+    .success{background:#1b2d1b;border:1px solid #2d5c2d;color:#6bff6b;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:1rem;display:none}
+    .invite-box{background:#1a1a2e;border:1px solid #6c63ff;border-radius:10px;padding:1rem;text-align:center;margin-bottom:1rem;display:none}
+    .invite-box .invite-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+    .invite-box .invite-code{font-size:28px;font-weight:700;color:#6c63ff;letter-spacing:4px}
+    .invite-box .invite-hint{font-size:11px;color:#666;margin-top:6px}
+    #loginForm{display:block}
+    #registerForm{display:none}
+    #joinFields{display:block}
+    #createFields{display:none}
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="card">
+  <div class="logo">
+    <span class="icon">💸</span>
+    <h1>Family Expense Tracker</h1>
+    <p>Track every rupee, together.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('login')">Sign In</button>
+    <button class="tab-btn" onclick="showTab('register')">Register</button>
+  </div>
+
+  <div id="errorBox"   class="error"></div>
+  <div id="successBox" class="success"></div>
+  <div id="inviteBox"  class="invite-box">
+    <div class="invite-label">Your Family Invite Code</div>
+    <div class="invite-code" id="inviteCodeDisplay"></div>
+    <div class="invite-hint">Share this code with family members so they can join</div>
+  </div>
+
+  <!-- Login -->
+  <div id="loginForm">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="loginUsername" placeholder="Enter your username"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password"/>
+    </div>
+    <button class="btn-submit" onclick="doLogin()">Sign In</button>
+  </div>
+
+  <!-- Register -->
+  <div id="registerForm">
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="regName" placeholder="e.g. Rahul Sharma"/>
+    </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="regUsername" placeholder="Choose a username"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="regPassword" placeholder="Min. 4 characters"/>
+    </div>
+
+    <div class="reg-tabs">
+      <button class="reg-tab" onclick="showRegTab('join')">Join a Family</button>
+      <button class="reg-tab active" onclick="showRegTab('create')">Create a Family</button>
+    </div>
+
+    <div id="joinFields">
+      <div class="form-group">
+        <label>Invite Code</label>
+        <input type="text" id="regInviteCode" placeholder="Enter 6-digit invite code" style="text-transform:uppercase;letter-spacing:2px"/>
+      </div>
+    </div>
+
+    <div id="createFields">
+      <div class="form-group">
+        <label>Family Name</label>
+        <input type="text" id="regFamilyName" placeholder="e.g. The Sharmas"/>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="doRegister()">Create Account</button>
+  </div>
+</div>
+
+<script>
+var regAction = "create";
+
+function showTab(tab) {
+  document.getElementById("loginForm").style.display    = tab === "login"    ? "block" : "none";
+  document.getElementById("registerForm").style.display = tab === "register" ? "block" : "none";
+  document.querySelectorAll(".tab-btn").forEach(function(b, i) {
+    b.classList.toggle("active", (i === 0 && tab === "login") || (i === 1 && tab === "register"));
+  });
+  hideMessages();
+}
+
+function showRegTab(action) {
+  regAction = action;
+  document.getElementById("joinFields").style.display   = action === "join"   ? "block" : "none";
+  document.getElementById("createFields").style.display = action === "create" ? "block" : "none";
+  document.querySelectorAll(".reg-tab").forEach(function(b, i) {
+    b.classList.toggle("active", (i === 0 && action === "join") || (i === 1 && action === "create"));
+  });
+}
+
+function showError(msg)   { var e = document.getElementById("errorBox");   e.textContent = msg; e.style.display = "block"; document.getElementById("successBox").style.display = "none"; document.getElementById("inviteBox").style.display = "none"; }
+function showSuccess(msg) { var e = document.getElementById("successBox"); e.textContent = msg; e.style.display = "block"; document.getElementById("errorBox").style.display   = "none"; }
+function hideMessages()   { document.getElementById("errorBox").style.display = "none"; document.getElementById("successBox").style.display = "none"; document.getElementById("inviteBox").style.display = "none"; }
+
+async function doLogin() {
+  var username = document.getElementById("loginUsername").value.trim();
+  var password = document.getElementById("loginPassword").value.trim();
+  if (!username || !password) return showError("Please fill in all fields");
+  try {
+    var res  = await fetch("/api/auth/login", { method: "POST", headers: {"Content-Type": "application/json"}, credentials: "include", body: JSON.stringify({username: username, password: password}) });
+    var data = await res.json();
+    if (res.ok) { window.location.href = "/"; }
+    else        { showError(data.error); }
+  } catch(err) { showError("Cannot connect to server. Is Flask running?"); }
+}
+
+async function doRegister() {
+  var display_name = document.getElementById("regName").value.trim();
+  var username     = document.getElementById("regUsername").value.trim();
+  var password     = document.getElementById("regPassword").value.trim();
+  var invite_code  = document.getElementById("regInviteCode") ? document.getElementById("regInviteCode").value.trim() : "";
+  var family_name  = document.getElementById("regFamilyName") ? document.getElementById("regFamilyName").value.trim() : "";
+
+  if (!display_name || !username || !password) return showError("Please fill in all fields");
+  if (regAction === "join"   && !invite_code)  return showError("Enter the invite code");
+  if (regAction === "create" && !family_name)  return showError("Enter a family name");
+
+  try {
+    var res  = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      credentials: "include",
+      body: JSON.stringify({ username: username, password: password, display_name: display_name, action: regAction, invite_code: invite_code, family_name: family_name })
+    });
+    var data = await res.json();
+    if (res.ok) {
+      if (data.invite_code) {
+        document.getElementById("inviteCodeDisplay").textContent = data.invite_code;
+        document.getElementById("inviteBox").style.display = "block";
+        showSuccess("Family created! Share the invite code below with your family members.");
+      } else {
+        showSuccess("Joined family! You can now sign in.");
+      }
+      showTab("login");
+    } else {
+      showError(data.error);
+    }
+  } catch(err) { showError("Cannot connect to server. Is Flask running?"); }
+}
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    var isLogin = document.getElementById("loginForm").style.display !== "none";
+    if (isLogin) doLogin(); else doRegister();
+  }
+});
+
+showRegTab("create");
+</script>
+</body>
+</html>
